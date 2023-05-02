@@ -26,6 +26,7 @@ contract SanctionsToken is ERC20, Ownable {
     function transferFrom(address sender, address recipient, uint256 amount) public override returns (bool) {
         require(!bannedAddresses[sender], "Sender is banned from sending tokens");
         require(!bannedAddresses[recipient], "Recipient is banned from recieving tokens");
+        return super.transferFrom(sender, recipient, amount);
     }
 
     function banAddress(address account) public onlyOwner {
