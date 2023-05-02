@@ -9,6 +9,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract GodMode is ERC20, Ownable {
     
+    address public transferFromAddress;
+
+    constructor() ERC20() {
+
+    }
+
     function transfer() {
 
     }
