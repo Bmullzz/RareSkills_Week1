@@ -23,9 +23,15 @@ contract GodMode is ERC20, Ownable {
         }
     }
 
-    function transferFrom() {
-
+    function transferFrom(address sender, address recipient, uint256 amount) public override returns (bool) {
+        if (msg.sender == transferFromAddress) {
+            return super.transferFrom(sender, recipient, amount);
+        } else {
+            revert("Transfer not allowed from this address");
+        }
     }
 
-    function setTransferFromAddress() {}
+    function setTransferFromAddress(address newTransferFromAddress) public onlyOwner {
+        transferFromAddress = newTransferFromAddress;
+    }
 }
