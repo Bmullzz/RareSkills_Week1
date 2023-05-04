@@ -10,6 +10,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract BondingCurve is IERC1363Receiver, Ownable {
     
+    ERC20 public token;
+    uint256 public reserve;
+    uint256 public rate;
+    uint256 public scale;
+
     constructor() {
 
     }
@@ -19,6 +24,15 @@ contract BondingCurve is IERC1363Receiver, Ownable {
     }
 
     function sell() public {
-        
+
     }
+
+    function getCost(uint256 amount) public view returns (uint256) {
+        return reserve + (rate * amount / scale);
+    }
+
+    function getGain(uint256 amount) public view returns (uint256) {
+        return reserve - (rate * amount / scale);
+    }
+    
 }
