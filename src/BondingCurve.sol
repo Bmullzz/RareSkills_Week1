@@ -15,15 +15,24 @@ contract BondingCurve is IERC1363Receiver, Ownable {
     uint256 public rate;
     uint256 public scale;
 
-    constructor() {
+    event Bought(address indexed buyer, uint256 amount, uint256 cost);
 
+    constructor(address _token, uint256 _reserve, uint256 _rate, uint256 _scale) {
+        token = ERC20(_token);
+        reserve = _reserve;
+        rate = _rate;
+        scale = _scale;
     }
 
-    function buy() public {
-
+    function buy(uint256 amount) public {
+        uint256 cost = getCost(amount);
+        require(token.balanceOf(msg.sender) >= cost, "Insufficient Funds");
+        require(token.transferFrom(msg.sender, address(this), cost), "Transfer failed");
+        reserve += cost;
+        emit Bought(msg.sender, amount, cost);
     }
 
-    function sell() public {
+    function sell(uint256 amount) public {
 
     }
 
