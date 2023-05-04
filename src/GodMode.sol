@@ -11,11 +11,11 @@ contract GodMode is ERC20, Ownable {
     
     address public transferFromAddress;
 
-    constructor() ERC20() {
-
+    constructor(String memory name, string memory symbol, uint256 initialSupply) ERC20(name, symbol) {
+        _mint(msg.sender, initialSupply);
     }
 
-    function transfer() {
+    function transfer() public override returns (bool) {
 
     }
 
